@@ -1,0 +1,19 @@
+Algoritma utama
+Mulai.
+Baca data. Tentukan matriks A dan vektor b dari sistem persamaan.
+Bentuk matriks augmented. Gabungkan A dan b menjadi matriks M berukuran 3×4, dengan b sebagai kolom ke-4.
+Eliminasi maju. Untuk setiap kolom pivot k = 1 sampai 2, lakukan langkah berikut:
+Cari pivot. Cari baris p (dari baris k sampai 3) yang memiliki nilai mutlak M[p,k] terbesar.
+Cek singular. Jika |M[p,k]| mendekati 0, tampilkan pesan “matriks singular, solusi tunggal tidak ada” lalu berhenti.
+Tukar baris. Jika p ≠ k, tukar baris k dengan baris p.
+Nolkan elemen di bawah pivot. Untuk setiap baris i = k+1 sampai 3:
+hitung faktor = M[i,k] / M[k,k];
+ubah baris i menjadi baris i − (faktor × baris k).
+Cek pivot terakhir. Jika |M[3,3]| mendekati 0, tampilkan pesan singular lalu berhenti.
+Substitusi mundur. Hitung dari variabel terakhir ke pertama:
+z = M[3,4] / M[3,3]
+y = (M[2,4] − M[2,3]·z) / M[2,2]
+x = (M[1,4] − M[1,2]·y − M[1,3]·z) / M[1,1]
+Verifikasi. Hitung residual R = A·x − b dan bandingkan dengan solusi dari np.linalg.solve. Hasil benar jika R mendekati 0.
+Tampilkan nilai x, y, dan z.
+Selesai.
