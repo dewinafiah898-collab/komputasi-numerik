@@ -1,0 +1,69 @@
+PROMPT 1 - Pemahaman tugas keseluruhan
+======================================================
+Saya mahasiswa mata kuliah Komputasi Numerik. Saya mendapat tugas membuat
+repository GitHub, notebook Google Colab, algoritma, dan video penjelasan untuk
+penyelesaian Sistem Persamaan Linear (SPL) 3 variabel. Tolong bantu saya
+menyiapkan kode, algoritma, dan penjelasannya. Berikan kode Python yang
+sederhana dan bisa saya jelaskan sendiri di video.
+ 
+======================================================
+PROMPT 2 - Algoritma (Tugas no. 5)
+======================================================
+Buatkan algoritma penyelesaian SPL 3 variabel menggunakan metode Eliminasi
+Gauss dengan pivoting parsial. Tuliskan dalam bentuk langkah bernomor yang
+mencakup: input, pembentukan matriks augmented, eliminasi maju, pengecekan
+matriks singular, substitusi mundur, verifikasi, dan output. Tambahkan juga
+contoh penelusuran dengan satu soal dan diagram alir versi teks.
+ 
+======================================================
+PROMPT 3 - Kode Python di Google Colab (Tugas no. 6)
+======================================================
+Berdasarkan algoritma tadi, buatkan kode Python untuk Google Colab yang
+tertata dalam cell-cell terpisah agar bisa dijalankan satu per satu. Susunan
+cell: (1) import library, (2) mendefinisikan matriks A dan vektor b,
+(3) fungsi eliminasi Gauss dengan pivoting parsial, (4) menjalankan fungsi dan
+menampilkan hasil x, y, z, (5) verifikasi dengan numpy dan residual,
+(6) input interaktif dari pengguna. Gunakan soal contoh yang solusinya
+bilangan bulat supaya mudah dicek.
+ 
+======================================================
+PROMPT 4 - Keterangan detail tiap baris (Tugas no. 7)
+======================================================
+Edit kode tadi dengan menambahkan komentar detail pada setiap baris kode, dan
+tambahkan sel teks (markdown) di atas tiap cell yang menjelaskan tujuan cell
+tersebut. Gunakan bahasa Indonesia yang mudah dipahami mahasiswa.
+ 
+======================================================
+PROMPT 5 - Penjelasan per cell
+======================================================
+Berikan kodenya per cell, lalu jelaskan fungsi dan cara kerja kode pada tiap
+cell tersebut, termasuk alasan memakai pivoting parsial, rumus faktor
+eliminasi, dan rumus substitusi mundur.
+ 
+======================================================
+PROMPT 6 - Pemetaan algoritma ke kode
+======================================================
+Buatkan algoritma untuk kode tersebut, lalu tunjukkan hubungan tiap langkah
+algoritma dengan cell kode yang bersangkutan dalam bentuk tabel.
+ 
+======================================================
+PROMPT 7 - Mengurangi kemiripan
+======================================================
+Saya ingin dokumen saya tidak mirip dengan mahasiswa lain. Berikan variasi
+soal SPL 3 variabel lain (dengan solusi yang sudah pasti benar), saran
+perubahan nama variabel, dan cara menulis ulang komentar dengan gaya bahasa
+saya sendiri. Jangan mengubah logika kode.
+ 
+======================================================
+PROMPT 8 - Naskah video maksimal 5 menit (Tugas no. 10)
+======================================================
+Buatkan naskah video penjelasan maksimal 5 menit dengan pembagian: 15-30
+detik pembukaan dengan wajah, lalu sisanya suara saja sambil menampilkan slide
+algoritma dan kode di Google Colab. Cantumkan perkiraan durasi tiap bagian dan
+poin yang harus diucapkan pada tiap cell.
+ 
+======================================================
+CATATAN
+======================================================
+Tugas no. 12 (Bisection) tidak dikerjakan sesuai arahan.
+ 
