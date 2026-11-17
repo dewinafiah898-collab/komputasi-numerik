@@ -1,19 +1,93 @@
 Algoritma utama
 Mulai.
-Baca data. Tentukan matriks A dan vektor b dari sistem persamaan.
-Bentuk matriks augmented. Gabungkan A dan b menjadi matriks M berukuran 3×4, dengan b sebagai kolom ke-4.
-Eliminasi maju. Untuk setiap kolom pivot k = 1 sampai 2, lakukan langkah berikut:
-Cari pivot. Cari baris p (dari baris k sampai 3) yang memiliki nilai mutlak M[p,k] terbesar.
-Cek singular. Jika |M[p,k]| mendekati 0, tampilkan pesan “matriks singular, solusi tunggal tidak ada” lalu berhenti.
-Tukar baris. Jika p ≠ k, tukar baris k dengan baris p.
-Nolkan elemen di bawah pivot. Untuk setiap baris i = k+1 sampai 3:
-hitung faktor = M[i,k] / M[k,k];
-ubah baris i menjadi baris i − (faktor × baris k).
-Cek pivot terakhir. Jika |M[3,3]| mendekati 0, tampilkan pesan singular lalu berhenti.
-Substitusi mundur. Hitung dari variabel terakhir ke pertama:
-z = M[3,4] / M[3,3]
-y = (M[2,4] − M[2,3]·z) / M[2,2]
-x = (M[1,4] − M[1,2]·y − M[1,3]·z) / M[1,1]
-Verifikasi. Hitung residual R = A·x − b dan bandingkan dengan solusi dari np.linalg.solve. Hasil benar jika R mendekati 0.
-Tampilkan nilai x, y, dan z.
-Selesai.
+Langkah 1. Memuat library (Cell 1)
+Muat numpy dengan nama pendek np.
+Alasan: Python biasa tidak punya matriks. Numpy menyediakan array 2 dimensi, operasi pada satu baris sekaligus, dan fungsi bantu seperti hstack, argmax, dan dot.
+
+Langkah 2. Mendefinisikan A dan b (Cell 2)
+Tulis tiap persamaan sebagai satu baris A. Urutan kolom selalu x, y, z. Ruas kanan masuk ke vektor b.
+Contoh: 2x + y − z = 8 menjadi baris [2, 1, −1] di A dan angka 8 di b.
+Simpan sebagai float. Jika memakai bilangan bulat, hasil pembagian seperti 2/(−3) bisa terpotong dan eliminasi menjadi salah.
+Tampilkan A dan b sebelum menghitung agar salah ketik koefisien langsung ketahuan.
+
+Data contoh:
+
+ 2x +  y −  z =   8
+−3x −  y + 2z = −11
+−2x +  y + 2z =  −3
+
+Langkah 3. Membentuk matriks augmented
+Hitung n = jumlah persamaan (3). Tempelkan b sebagai kolom ke-4 dari A, sehingga terbentuk M = [A | b] berukuran 3×4. Salinan dipakai agar A asli tidak berubah.
+Alasan: operasi baris harus berlaku untuk koefisien dan konstanta sekaligus. Jika hanya A yang diubah, persamaannya tidak lagi ekuivalen.
+[ 2   1  −1 |   8 ]
+[−3  −1   2 | −11 ]
+[−2   1   2 |  −3 ]
+Langkah 4. Eliminasi maju (diulang untuk tiap kolom pivot k = 1 sampai n−1)
+
+4a. Mencari pivot terbesar (pivoting parsial)
+
+Periksa kolom k dari baris k ke bawah. Pilih baris p dengan nilai mutlak terbesar.
+Alasan: membagi dengan bilangan kecil memperbesar galat pembulatan. Pivot terbesar menjaga faktor tetap ≤ 1 dan mencegah pembagian dengan nol.
+
+Mengecek singular
+
+Jika |M[p,k]| < 10⁻¹², hentikan dengan pesan “matriks singular, solusi tunggal tidak ada”.
+Alasan: jika semua kandidat pivot ≈ 0, persamaan saling bergantung (garis sejajar atau berimpit). Toleransi 10⁻¹² dipakai karena komputer menyimpan desimal dengan galat kecil, jadi tidak membandingkan dengan 0 secara persis.
+
+4c. Menukar baris
+
+Jika p ≠ k, tukar baris k dengan baris p. Menukar urutan persamaan tidak mengubah solusi.
+
+4d. Menolkan elemen di bawah pivot
+
+Untuk tiap baris i di bawah k:
+faktor = M[i,k] / M[k,k]
+baris i = baris i − faktor × baris k, dimulai dari kolom k
+Alasan: setelah dikurangi, elemen M[i,k] menjadi tepat 0. Mulai dari kolom k karena kolom sebelumnya sudah 0.
+
+4e. Menampilkan kondisi matriks (bila tampil=True) untuk melihat prosesnya.
+
+Langkah 5. Memeriksa pivot terakhir
+Jika |M[n,n]| < 10⁻¹², hentikan dengan pesan singular.
+Alasan: perulangan 4 hanya sampai kolom n−1, jadi pivot terakhir belum diperiksa. Jika nol, baris terakhir tak bisa dibagi untuk mencari z.
+Langkah 6. Substitusi mundur (i dari n turun sampai 1)
+Hitung x_i = (konstanta_i − Σ a_ij · x_j untuk j > i) / a_ii.
+Urutannya z, lalu y, lalu x.
+Alasan: pada matriks segitiga atas, baris terakhir hanya memuat z. Setelah z diketahui, baris di atasnya hanya punya satu hal yang belum diketahui, dan seterusnya. np.dot menghitung jumlah Σ sekaligus.
+Kembalikan vektor solusi.
+TAHAP C: Penelusuran Contoh (isi Cell 3 saat dijalankan)
+
+Kolom 1. Kandidat pivot: |2|, |−3|, |−2|. Terbesar adalah −3 (baris 2), sehingga baris 1 dan 2 ditukar.
+
+[−3  −1   2 | −11 ]
+[ 2   1  −1 |   8 ]
+[−2   1   2 |  −3 ]
+Baris 2: faktor = 2/(−3) = −0,6667, hasil [0, 0,3333, 0,3333 | 0,6667]
+Baris 3: faktor = (−2)/(−3) = 0,6667, hasil [0, 1,6667, 0,6667 | 4,3333]
+
+Kolom 2. Kandidat pivot: |0,3333| dan |1,6667|. Terbesar di baris 3, sehingga baris 2 dan 3 ditukar.
+
+Baris 3: faktor = 0,3333/1,6667 = 0,2, hasil [0, 0, 0,2 | −0,2]
+
+Matriks segitiga atas:
+
+[−3   −1       2      | −11     ]
+[ 0    1,6667  0,6667 |  4,3333 ]
+[ 0    0       0,2    | −0,2    ]
+
+Substitusi mundur:
+
+z = −0,2 / 0,2 = −1
+y = (4,3333 − 0,6667·(−1)) / 1,6667 = 5 / 1,6667 = 3
+x = (−11 − (−1)(3) − 2(−1)) / (−3) = (−6) / (−3) = 2
+
+Langkah 7. Menjalankan fungsi (Cell 4)
+Cell 3 hanya mendefinisikan fungsi, belum menghitung apa pun. Panggil eliminasi_gauss(A, b) dan simpan hasilnya di solusi.
+Cetak solusi[0], solusi[1], solusi[2] sebagai x, y, z dengan 4 desimal. Format desimal hanya memengaruhi tampilan, bukan nilai yang tersimpan.
+Langkah 8. Verifikasi dengan tiga cara (Cell 5)
+Pembanding independen: hitung np.linalg.solve(A, b) dan bandingkan dengan solusi Gauss.
+Residual: hitung A·x − b. Jika x benar, setiap persamaan terpenuhi sehingga selisihnya ≈ 0. Nilai seperti 10⁻¹⁵ wajar karena galat komputer.
+np.allclose: membandingkan dua hasil dengan toleransi kecil. Membandingkan desimal dengan == bisa gagal karena selisih pembulatan.
+
+Substitusi manual untuk persamaan pertama: 2(2) + 3 − (−1) = 8 ✓.
+ langkah 9 : Selesai
